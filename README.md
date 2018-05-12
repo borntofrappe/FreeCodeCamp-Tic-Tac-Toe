@@ -1,5 +1,4 @@
-# FreeCodeCamp-Tic-Tac-Toe
-Create a Tic Tac Toe game for the penultimate project of the FreeCodeCamp curriculum, concerning 'Advanced Front-End Web Development Projects'.
+Link to the work-in-progress pen right [here](https://codepen.io/borntofrappe/pen/JvZGdj).
 
 # Preface
 
