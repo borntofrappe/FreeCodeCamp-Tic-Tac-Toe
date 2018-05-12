@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Source+Code+Pro");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  width: 100%;
+  color: #f36653;
+  background-color: #1f1c3d;
+}
+.container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  grid-gap: 10px;
+  margin: 1rem 0;
+}
+.container .grid .square {
+  border: 4px solid #f36653;
+  font-size: 5rem;
+  font-family: 'Source Code Pro', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .grid .square.empty {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.container .grid .square.empty:hover {
+  background: #2e295a;
+}
+.container h2 {
+  opacity: 0;
+  visibility: hidden;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+.container h2.result {
+  opacity: 1;
+  visibility: visible;
+}
