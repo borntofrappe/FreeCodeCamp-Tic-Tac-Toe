@@ -1,96 +1,83 @@
-Link to the work-in-progress pen right [here](https://codepen.io/borntofrappe/pen/JvZGdj).
+Link to the work-in-progress pen right [here](https://codepen.io/borntofrappe/full/JvZGdj/).
 
 # Preface
 
 The purpose of this project is create a Tic-Tac-Toe game, and in so doing complete the third and penultimate project for the @freecodecamp curriculum, in the line of "Advanced Front-End Web Development Projects".
 
-The project itself needs to fulfill a series of user stories:
+The project itself needs to fulfill a series of user-stories:
 
 - it is possible to play a tic-tac-toe game with the computer
 - once a game it's over, a new one will start
 - it is possible to pick and choose whether to play as X or O.
 
-There's also a bonus-points user story to be fulfilled:
+There's also a bonus-points user-story to be fulfilled:
 
 - it is never actually possible to win a game with the computer.
 
-This last feature seems to be rather challenging. As the project itself is not straightforward, it will be relegated to V2.
+This last feature seems to be rather daunting. As the project itself is already challenging, the bonus-points user-story will be postponed for a later update.
 
-# First Thoughts
+# Versions
 
-Admittedly, this project stomped me a little. Repeatedly I decided to do something else, like setting up a workflow with gulp, instead of actually tackling the aforementioned user stories.
+I tried working with versions once before, and I'd figure I'd extend this approach for a larger-scale project such as this one. A good excuse to validate/destroy the usefulness of the methodology. I work in increments, building feature upon feature from the smallest, most innocuous and seemingly inconsequential steps to the final project.
 
-Hopefully, starting anyway will lead somewhere.
+**V1**: create a grid of nine squares in which, whenever the user clicks a square, you display an X right smack in the center of the simple shape
 
-I started wondering about the canvas element, but later started to ponder about a simple grid structure.
+**V1.5**: instead of always displaying X, alternatively display X and O.
 
-# Plan
+_Thoughts on V1.5_
 
-V1: create a grid of nine squares in which, whenever the user clicks a square, you display an X right smack in the center of the simple shape
+These first versions are actuallly easier than anticipated. All that is required is an event listener attached to each square and a function which includes "x" and "o" alternatively. "x" and "o" are included if no prior text is already in the square and based on the even/odd nature of a counter variable, which is updated with every iteration through the function.
 
-V1.5: instead of always displaying X, alternatively display X and O.
+From this structure, some considerations must be weighed as to find out when the game ought to end.
 
-These first versions are actuallly easier than anticipated. All that is required is an event listener attached to each square and a function which includes x and o alternatively (based on the even/odd nature of a counter variable) and if no prior text is already in the interacting square.
+**V2**: the game ends and resets when all squares contain text
 
-```JS
-// target the squares of the grid
-const squares = document.querySelectorAll(".grid .square");
+**V2.3**: the game ends if one side wins
 
-// listen for a click event on all squares
-squares.forEach(square => square.addEventListener("click", function(e) {
-    // if the square has no text in it, draw x or o depending on which character should be included 
-    // else do nothing
-    if(square.textContent == "") {
-        drawXandO(e);
-    }
-}));
+_Thoughts on V2.3_
 
-// initialize a variable to iteratively include x and o
-let counter = 1;
-function drawXandO(e) {
-    // e.target relates to the particular div which is actually clicked
-    // console.log(e.target);
+Realizing that all the squares in the grid include text is a rather straightforward feature. In the project, this is achieved through the consideration of the `counter` variable updated at every iteration, which therefore reaches an upper limit. That being said, it could also be possible to loop over all the squares to check if even a single one doesn't contain any text-
 
-    // draw an x, always
-    // e.target.textContent = "x";
+Realizing that a side has won is a tad more challenging. At first I included a series of if/else if statements to check for a total of eight winning combinations.
 
-    // draw x and o alternatively (as counter is initially 1, the script runs first the else statement)
-    if(counter % 2 == 0) {
-        e.target.textContent = "o";
-    }
-    else {
-        e.target.textContent = "x";
-    }
-    // remove the cursor pointer for the selected square 
-    e.target.style.cursor = "default";
-    
-    // increment counter, allowing for the variable to be iteratively even and odd
-    counter++;
-}
+The approach, while laborious in the implementation of the last step, worked as the following pseudo-code describes:
+
+```
+create an empty string
+loop through all the squares in the grid
+    if a square has some text
+        append said text to the string
+    else 
+        append a whitespace
+        
+check if the string (a 9 character long string with "x", "o" and whitespace) matches a winning condition
 ```
 
-From this structure, without adding the computer playing the game, some considerations must be weighed as to find out when the game ought to end.
+If/else if statements worked, but the repetitiveness of the code was borderline horrifying.
 
-Beside the obvious and rather simpler instance in which all squares contain text, the game should end if somebody (o or x) wins...which begs the question of how to code such an occasion.
+That is when regular expressions occurred to me. Instead of conditional if/else if statements, I therefore created an array in which I stored the regex for all the possible winning combinations. With said treasure-trove, the script needs to create the 9 characters long string, as before, but it needs to just check if there's a match with one of the winning regex-
 
-For the former case, it is actually straightforwards and even more ideas than one come to mind.
+**V3**: it is possible to select whether to start the game as x or o.
 
-It is possible to loop over all squares, and check if not a single one contains text. It is also possible to use the fabricated `counter` variable. Indeed logging this variable will make this choice obvious.
+_Thoughts on V3_
 
-At the end of the `draw()` function, this variable always stores the value of 10 (starting from 1, with 9 increments).
+**V4**: it is possible to select whether to play against a human or a computer
 
-If this variable is equal to such value, it is possible to "clear" the grid.
+_Thoughts on V4_
 
-```JS
-// if all squares contain text
-if(counter == 10) {
-    // after 1.5 seconds, clear all text from the grid
-    setTimeout(() => squares.forEach(square => square.textContent = ""), 1500);
-}
-```
+_Thoughts on future updates_
 
-This allows to reach the current version V1.8: display x and o alternatiely and clear the grid when all squares contain either. To display x and o again.
 
-Still quite few features need to be included. The computer playing each alternate turn, the user selecting whether to play x and o, and the essential feature of ending the game early, if a winning condition is met...
 
-I should probably start with the latter, as it is appears to be the most demanding of the bunch.
+
+
+
+
+
+
+
+
+
+
+
+
